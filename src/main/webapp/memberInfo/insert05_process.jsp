@@ -24,18 +24,23 @@
 	
 	
 	
-		Statement stmt = null; //Statement 객체 : sql 쿼리 구문을 담아서 실행하는 객체
+		PreparedStatement pstmt = null; //PreparedStatement 객체 : sql 쿼리 구문을 담아서 실행하는 객체
 		String sql = null;
 		try{
 			// id, pass, name, email 의 값은 문자열이므로 ''들어감/ 변수에 값 넣기
 			sql = 
-			"Insert into mbTbl (idx ,id , pass, name, email) values (seq_mbTbl_idx.nextval, '" + id + "','" + passwd + "','" + name + "','" + email + "')";
+			"Insert into mbTbl (idx ,id , pass, name, email) values (seq_mbTbl_idx.nextval,?,?,?,?)";
 			
-			stmt = conn.createStatement();	//connection 객체를 통해서 statement 객체 생성
-			// conn은 include file = "dbconn_oracle.jsp에 들어가 있음
-			stmt.executeUpdate(sql); //statement객체를 통해서 sql을 실행함
-				// stmt.executeUpdate(sql) : sql 구문에 Insert,Update, Delete 구문이 온다.
-				// stmt.executeQuery(sql) : Sql 구문에 select문이 오면서 select한 결과를 Result 객체로 반환.
+			pstmt = conn.prepareStatement(sql);	
+			
+			pstmt.setString(1,id);
+			pstmt.setString(2,passwd);
+			pstmt.setString(3,name);
+			pstmt.setString(4,email);
+			
+			pstmt.executeUpdate(); //statement객체를 통해서 sql을 실행함
+				// pstmt.executeUpdate() : sql 구문에 Insert,Update, Delete 구문이 온다.
+				// pstmt.executeQuery() : Sql 구문에 select문이 오면서 select한 결과를 Result 객체로 반환.
 				
 		out.println("테이블 삽입에 성공 했습니다.");
 		out.println(sql); // ''잘 처리됐는지 확인
@@ -46,8 +51,8 @@
 			out.println("mbTbl 테이블 삽입을 실패했습니다.");
 			out.println(e.getMessage());
 		}finally {
-			if(stmt != null)
-				stmt.close();
+			if(pstmt != null)
+				pstmt.close();
 			if(conn != null)
 				conn.close();
 		}
@@ -57,7 +62,7 @@
 	<%= passwd %>
 	<%= name %>
 	<%= email %>
-	<%= sql %>  // html블락에서 출력
+	<%= sql %>  
 	<% 
 	out.println(sql);  // jsp블락에서 출력
 	%>  

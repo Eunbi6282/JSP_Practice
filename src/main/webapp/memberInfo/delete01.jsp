@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method = "post" action = "insert01_process.jsp"> <!-- 페이지 값을 insert01_process.jsp으로 넘겨줌  -->
+	<form method = "post" action = "delete01_process.jsp"> <!-- 페이지 값을 insert01_process.jsp으로 넘겨줌  -->
 		<p> 아이디 : <input type = "text" name = "id">
 		<p> 패스워드 : <input type = "password" name = "passwd">
 		<p> 이름 : <input type = "text" name = "name">
 		<p> 이메일 : <input type = "text" name = "email">
-		<p> <input type = "submit" values = "전송">
+		<p> <input type = "submit" value = "전송">
 		<!--submit누르면 action 페이지 호출  -->
 	</form>
 <!-- 
