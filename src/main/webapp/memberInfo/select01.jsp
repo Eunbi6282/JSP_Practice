@@ -42,7 +42,7 @@
 				// stmt.executeUpdate(sql) : insert, update,delete
 			while(rs.next()){
 				String id = rs.getString("id");  //id컬럼의 값을 가져와서 id변수에 담기
-				String name = rs.getString("name");
+				String name = rs.getString("name"); // ("컬럼명")
 				String pass = rs.getString("pass");
 				String email = rs.getString("email");
 				String city = rs.getString ("city");
