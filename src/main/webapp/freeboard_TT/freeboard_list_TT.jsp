@@ -100,7 +100,7 @@
  try {
   st = conn.createStatement();
   String sql = "select * from freeboard order by" ;
-  sql = sql + " masterid desc, replaynum, step, id" ;
+  sql = sql + " masterid desc, replynum, step, id" ;
   rs = st.executeQuery(sql);
 
   if (!(rs.next()))  {
