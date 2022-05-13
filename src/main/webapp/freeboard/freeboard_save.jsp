@@ -1,5 +1,4 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.concurrent.CountDownLatch"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
     
@@ -29,12 +28,20 @@
 		}
 		
 		//content(Text Area)의 enter처리해줘야 한다. => Oracle DB에 저장시에 enter에 대한 처리
-		while ((pos = cont.indexOf("\'" , pos)) != -1) {
-			String left = cont.substring(0,pos);
-			String right = cont.substring(pos, cont.length());
+				// textarea내의 '가 들어가면 DB에 insert, update시 문제 발생 => '처리해줘야 함
+		
+		while ((pos = cont.indexOf("\'" , pos)) != -1) {  //'의 인덱스 값을 가지고 와서 pos변수에 담기 //-1 : 값이 존재하지 않을때 까지
+			String left = cont.substring(0,pos);	// left 변수 => 0번째부터 pos까지 자르기
+				out.println("pos : " + pos + "<p>");
+				out.println("left : " + left + "<p>");
+				
+			String right = cont.substring(pos, cont.length());	// right 변수 => pos부터 끝까지 자르기
+				out.println("right : " + right + "<p>");
+				
 			cont = left + "\'" + right;
-			pos += 2;
+			pos += 2; 
 		}
+				
 		
 		// 오늘의 날짜 처리
 		java.util.Date yymmdd = new java.util.Date();
@@ -67,9 +74,12 @@
 			sql = sql + " values (" + id + ",'"  + na + "','" + pw + "', '" + em ;
 			sql = sql + "','" + sub + "','" + cont + "','" + ymd + "'," + id + "," ;
 			sql = sql + "0,0,0)";
-		//out.println(sql);
 		
 			cnt = st.executeUpdate(sql);	// cnt > 0 : Insert 성공
+			
+			// out.println(sql);
+			
+			// if (true) return;	// 여기서 멈춤
 			
 			if(cnt > 0 ) {
 				out.println("데이터가 성공적으로 입력 되었습니다.");
@@ -89,8 +99,13 @@
 		
 	%>
 	
-	<jsp:forward page = "freeboard_list.jsp" /> 
-	<!--  write 페이지에서 입력된 값은 save 로이동 -> save에서 저장된 값은 list 파일로 이동 -->
+	 <jsp:forward page = "freeboard_list.jsp" /> 
+	<!--  write 페이지에서 입력된 값은 save 로이동 -> save에서 저장된 값(DB에 저장 후)은 list 파일로 이동
+	// 페이지 이동 
+		jsp:forward  => 서버단에서 페이지를 이동, client의 기존 URL정보가 바뀌지 않는다. 
+		respose.sendRedirect => 클라이언트에서 페이지를 재요청으로 페이지 이동, 이동하는 페이지로 URL 정보가 바뀌게 된다. 
+	
+	-->
 	
 	
 </body>

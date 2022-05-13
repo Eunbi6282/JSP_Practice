@@ -15,14 +15,14 @@
    document.msgsearch.submit();
   }
  }
- function rimgchg(p1,p2) {
+ function rimgchg(p1,p2) { 
   if (p2==1) 
-   document.images[p1].src= "image/open.gif";
+   document.images[p1].src= "image/open.gif";  //document : 이 페이지의 전제 문서
   else
    document.images[p1].src= "image/arrow.gif";
   }
 
- function imgchg(p1,p2) {
+ function imgchg(p1,p2) {	//mouseover하면 1, mouseout하면 2
   if (p2==1) 
    document.images[p1].src= "image/open.gif";
   else
@@ -38,7 +38,8 @@
 <CENTER>
  <TABLE border=0 width=600 cellpadding=4 cellspacing=0>
   <tr align="center"> 
-   <td colspan="5" height="1" bgcolor="#1F4F8F"></td>
+   <td colspan="5" height="1" bgcolor="#1F4F8F"></td>	
+   <!--  colspan5 컬럼 5개 합침 -->
   </tr>
   <tr align="center" bgcolor="#87E8FF"> 
    <td width="42" bgcolor="#DFEDFF"><font size="2">번호</font></td>
@@ -150,7 +151,7 @@
    
    totalrows = name.size();	// name Vector에 저장된 값의 개수, 총 레코드 수
    totalpages = (totalrows-1)/maxrows +1;
-   startrow = (where-1) * maxrows;		// 현재 페이지의 시작/ 시작 레코드 번호
+   startrow = (where-1) * maxrows;		// 현재 페이지의 시작/ 시작 레코드 번호 => 이전 페이지에서 계산. id값과 무관함
    endrow = startrow+maxrows-1  ;		// 현재 페이지의 마지막 레코드 번호
    
    
@@ -171,9 +172,10 @@
    if (endpage > totalpages) 
     endpage=totalpages;
 
-   // 현재 페이지애서 시작레코드, 마지막 레코드까지 순환하면서 출력
-   for(int j=startrow;j<=endrow;j++) {
-    String temp=(String)email.elementAt(j); //email Vector에서 email주소 가지고옴
+   // 현재 페이지애서 시작레코드(startindex), 마지막 레코드(endindex)까지 순환하면서 출력 
+   for(int j=startrow;j<=endrow;j++) {	// j=startrow 인덱스 번호
+    String temp=(String)email.elementAt(j); //email Vector에서 email주소 가지고옴. 만약 j=startrow가 15번째 레코드라면 
+    		// index15번방에 있는 이메일 출력
     
     if ((temp == null) || (temp.equals("")) ) //메일주소가 비어있을 때
      em= (String)name.elementAt(j); 	// em변수에 이름만 가져와서 담는다. 
@@ -192,30 +194,33 @@
     // 첫번째 td(id)
     out.println("<TD align=center>");
     out.println(id+"</TD>");
-    out.println("<TD>");
     
     // 두번째 td (subject)
-    int stepi= ((Integer)step.elementAt(j)).intValue();
+    out.println("<TD>");
+    int stepi= ((Integer)step.elementAt(j)).intValue(); //step컬럼을 가져옴 => 답변의 깊이
+    		// step : 글의 깊이 , 0 : 처음글, 1 : 답변글 , 2: 답변의 답변글
+    		// 처음글에는 폴더 아이콘 적용, step 이 0보다 클 때(답변글)일때는 화살표적용
     int imgcount = j-startrow; 
     
-    if (stepi > 0 ) {
+    if (stepi > 0 ) { // 답변글인 경우
      for(int count=0; count < stepi; count++)
-      out.print("&nbsp;&nbsp;");
-     out.println("<IMG name=icon"+imgcount+ " src=image/arrow.gif>");
+     out.print("&nbsp;&nbsp;"); // 답변글일 경우 공백2칸 처리
+     out.println("<IMG name=icon"+imgcount+ " src=image/arrow.gif>"); //화살표
+     	//name=icon"+imgcount 이미지의 name값 처리
      out.print("<A href=freeboard_read.jsp?id=");
      out.print(keyid.elementAt(j) + "&page=" + where );
      out.print(" onmouseover=\"rimgchg(" + imgcount + ",1)\"");
      out.print(" onmouseout=\"rimgchg(" + imgcount + ",2)\">");
-    } else {
+     
+    } else {	// 처음글인 경우 
      out.println("<IMG name=icon"+imgcount+ " src=image/close.gif>");
      out.print("<A href=freeboard_read.jsp?id=");
      out.print(keyid.elementAt(j) + "&page=" + where );
      out.print(" onmouseover=\"imgchg(" + imgcount + ",1)\"");
      out.print(" onmouseout=\"imgchg(" + imgcount + ",2)\">");
     }
-    
-    // 세번째 td (이름, 이메일)
     out.println(subject.elementAt(j) + "</TD>");
+    // 세번째 td (이름, 이메일)
     out.println("<TD align=center>");
     out.println(em+ "</TD>");
     
@@ -287,7 +292,8 @@
 <TABLE border=0 width=600 cellpadding=0 cellspacing=0>
  <TR>
   <TD align=right width="241"> 
-   <SELECT name=stype >
+  <!-- stype : 변수명, value = 1.. : 변수에 들어갈 값 -->
+   <SELECT name=stype > 
     <OPTION value=1 >이름
     <OPTION value=2 >제목
     <OPTION value=3 >내용
@@ -297,13 +303,16 @@
     <OPTION value=7 >이름+제목+내용
    </SELECT>
   </TD>
+  
   <TD width="127" align="center">
    <INPUT type=text size="17" name="sval" >
   </TD>
+  
   <TD width="115">&nbsp;<a href="#" onClick="check();"><img src="image/serach.gif" border="0" align='absmiddle'></A></TD>
   <TD align=right valign=bottom width="117"><A href="freeboard_write.htm"><img src="image/write.gif" border="0"></TD>
  </TR>
 </TABLE>
 </FORM>
+
 </BODY>
 </HTML>

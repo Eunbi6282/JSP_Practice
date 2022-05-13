@@ -66,5 +66,7 @@
   } catch (SQLException e) {
    out.println(e);
   }
-  response.sendRedirect("freeboard_list.jsp?go="+request.getParameter("page"));
+  response.sendRedirect("freeboard_list.jsp?go="+request.getParameter("page")); 
+	 //  response.sendRedirect => 페이지가 바뀌면서 이동
+			 
  %>

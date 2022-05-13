@@ -109,14 +109,14 @@
 			   <table width="600" border="0" cellpadding="0" cellspacing="5">
 			   <tr> 
 			    <td align="right" width="450"><A href="freeboard_list.jsp?go=<%=request.getParameter("page") %>"> 
-			    
-			     <img src="image/list.jpg" border=0></a></td>
+			     <img src="image/list.jpg" border=0></a>
+			     </td>
 				<td width="70" align="right"><A href="freeboard_rwrite.jsp?id=<%= request.getParameter("id")%>&page=<%=request.getParameter("page")%>"> <img src="image/reply.jpg" border=0></A></td>
 				<td width="70" align="right"><A href="freeboard_upd.jsp?id=<%=id%>&page=1"><img src="image/edit.jpg" border=0></A></td>
 				<td width="70" align="right"><A href="freeboard_del.jsp?id=<%=id%>&page=1"><img src="image/del.jpg"  border=0></A></td>
 			   </tr>
 			  </table>
-			  <%    
+			  <%    // read페이지로 넘어오는 순간 DB에서 readcount +1
 				   sql = "update freeboard set readcount= readcount + 1 where id= ?" ;  //조회수 늘리기
 				   pstmt = conn.prepareStatement(sql);
 				   pstmt.setInt(1, id);

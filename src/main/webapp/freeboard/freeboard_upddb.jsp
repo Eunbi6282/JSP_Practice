@@ -17,8 +17,11 @@
  int pos=0;
  String cont=request.getParameter("content");
 
- if (cont.length()==1) 
+ if (cont.length()==1) // 글 내용이 1이라면 기준의 컨텐츠에 공백을 넣어서 처리,,,?
   cont = cont+" " ;
+ 
+ // textarea내의 '가 들어가면 DB에 insert, update시 문제 발생 => '처리해줘야 함
+ 
   while ((pos=cont.indexOf("\'", pos)) != -1) {
    String left=cont.substring(0, pos);
    String right=cont.substring(pos, cont.length());

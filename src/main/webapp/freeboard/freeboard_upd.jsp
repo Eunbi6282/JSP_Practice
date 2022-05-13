@@ -4,9 +4,12 @@
 <HTML>
 <HEAD>
 <SCRIPT language="javascript">
+
+<!-- document : 이문서전체, msgwrite : form // document하위의 msgwrite 폼 -->
+<!-- vlaue : 값이 들어있는 구문 vlaue = rs.getString("subject") -->
 function check() {
- with(document.msgwrite){
-  if(subject.value.length == 0){
+ with(document.msgwrite){  
+  if(subject.value.length == 0){	
    alert("제목을 입력해 주세요!!");
    subject.focus();
    return false;
@@ -29,6 +32,7 @@ function check() {
   document.msgwrite.submit();
  }
 }
+
 </SCRIPT> 
 <link href="filegb.css" rel="stylesheet" type="text/css">
 </HEAD>
@@ -57,6 +61,7 @@ function check() {
   } else {
 %>
 <FORM name="msgwrite" method=POST action="freeboard_upddb.jsp?id=<%=id%>&page=<%=p%>">
+	<!-- 모든 변수의 value값을 가지고 action 페이지로 이동 --> 
  <table width="600" cellspacing="0" cellpadding="2" align = "center">
   <tr> 
    <td colspan="2" bgcolor="#1F4F8F" height="1"></td>
@@ -70,7 +75,7 @@ function check() {
   <tr> 
    <td width="124" height="30" align="center" bgcolor="#f4f4f4">이 름</td>
    <td width="494"  style="padding:0 0 0 10"> 
-    <input type=text name=name value="<%=rs.getString("name")%>" class="input_style1">
+    <input type=text name=name value="<%=rs.getString("name")%>" class="input_style1">  <!-- DB안의 값(name)들을 가져와서 박스 안에 값을 찍어줌 --> 
    </td>
   </tr>
   <tr> 
@@ -89,6 +94,7 @@ function check() {
    <td width="124" height="162" align="center" valign="top" bgcolor="#f4f4f4" style="padding-top:7;">내 용</td>
    <td width="494" valign="top"  style="padding:5 0 5 10"> 
     <textarea name=content cols="65" rows="10" class="textarea_style1"><%=rs.getString("content")%> </textarea>
+    	<!-- textarea에 값 삽입 -->
    </td>
   </tr>
   <tr> 
