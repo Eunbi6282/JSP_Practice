@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import = "java.sql.*" %>
+<%@ page import = "java.sql.*, java.text.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,12 @@
 		if(cont.length() == 1) {
 			cont = cont + " ";
 		}
+		
+		while ((pos = cont.indexOf("\'", pos)) != -1) {
+			String left = cont.substring(0,pos);
+			
+			String right = cont.substring(pos, cont.length());
+			}
 		
 		
 	
