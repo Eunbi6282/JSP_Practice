@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type = "text/javascript">
+	function check() {
+		with (document.filegbwrite) {
+			if(name.value.length == 0) {
+				alert("이름을 입력해주세요!");
+				name.focus();
+				return false;
+			}
+			if (subject.value.length == 0) {
+				alert ("제목을 입력해주세요!");
+				subject.focus();
+				return false;
+			}
+			if (content.value.length == 0){
+				alert ("내용을 입력해주세요!");
+				content.focus();
+				return false;
+			}
+			document.filegbwrite.submit();
+		}
+	}
+</script>
+<meta charset="UTF-8">
+<title>폼에 값을 입력하세요</title>
+<link href = "filegb.css" rel = "stylesheet" type = "text/css" >
+
+</head>
+<body>
+
+	<form name = "filegbwrite" method = "post" action = "dbgb_save.jsp">
+		<table width = "600">
+		
+			<tr> 
+				<td colspan = "2" align = "center"> 
+					<h3> 글쓰기 </h3> 
+				</td>
+			</tr>
+			<tr> 
+				<td width = "124" align = "right">
+					이름
+				</td>
+				<td>
+					<input type = "text" name = "name">
+				</td>
+			</tr>
+			<tr> 
+				<td align = "right">
+					Email
+				</td>
+				<td>
+					<input type = "text" name = "email">
+				</td>
+			</tr>
+			<tr> 
+				<td align = "right">
+					제목	
+				</td>
+				<td>
+					<input type = "text" name = "subject">
+				</td>
+			</tr>
+			<tr> 
+				<td align = "right">
+					내용
+				</td>
+				<td>
+					<textarea rows = "10" cols = "65" name = "content" maxlength = "2000"> </textarea>
+				</td>
+			</tr>
+			<tr>
+				<td> &nbsp; </td> 
+				<td align = "right">
+					<table>
+						<tr>
+							<td >
+								<a href = "dbgb_show.jsp"><img src = "image/cancle.gif" width = "46" height = "20"></a>
+							</td>
+							<td>
+								<a href = "#" onClick = "check(this.form);"><img src = "image/ok.gif" width = "46" height = "20"></a>
+							</td>
+						</tr>
+					</table>
+				</td> 
+			</tr>
+		
+		</table>
+	
+	</form>
+</body>
+</html>

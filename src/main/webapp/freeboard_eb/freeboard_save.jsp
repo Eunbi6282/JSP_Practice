@@ -34,6 +34,30 @@
 			pos += 2;
 		}
 		
+		// 오늘의 날짜 처리
+		java.util.Date yymmdd = new java.util.Date();
+		SimpleDateFormat myFormat = new SimpleDateFormat ("yy-MM-d h:mm a");
+		String ymd = myFormat.format(yymmdd);
+		
+		// id값에 +1하면서 가져오기
+		String sql = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			// 최신 글번호 (id컬럼의 max값 + 1)
+			// conn -> autocommit
+			sql = "select max(id) from freeboard";
+			
+			
+			
+			
+			
+			
+			
+		}catch(Exception e){
+			out.println(e.getMessage());
+		}
 		
 	
 	
